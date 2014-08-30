@@ -1,0 +1,23 @@
+development:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: amber_development
+
+test:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: amber_test
+
+# set these environment variables on your prod server
+production:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      username: <%= ENV['MONGOID_USERNAME'] %>
+      password: <%= ENV['MONGOID_PASSWORD'] %>
+      database: <%= ENV['MONGOID_DATABASE'] %>

@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+billet=Post.create(title: 'Billet de test', content: 'Gabuzomeu', textid: 'billet-de-test', published: false)
+billet.save
