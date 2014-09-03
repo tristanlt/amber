@@ -1,0 +1,19 @@
+<h1>Listing blogs</h1>
+
+<table>
+  <tr>
+    <th>textid</th>
+    <th>Title</th>
+    <th>description</th>
+    <th>Published</th>
+  </tr>
+
+<% @blogs.each do |p| %>
+  <tr>
+    <td><%= p.textid %></td>
+    <td><%= p.title %></td>
+    <td><%= p.description %></td>
+    <td><%= p.published.to_s %></td>
+  </tr>
+<% end %>
+</table>
