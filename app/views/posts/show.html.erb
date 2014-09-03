@@ -1,0 +1,9 @@
+<h1><%= @post.title %></h1>
+<br />
+<p><%= @post.content%></p>
+<h2>Comments</h2>
+<ul>
+<% @post.comments.each do |c| %>
+	<li><%= c.content %></li>
+<% end %>
+</ul>
