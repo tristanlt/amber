@@ -9,8 +9,22 @@ class BlogsController < ApplicationController
   end
   
   def show
-    logger.debug(params)
     @blog = Blog.find(params[:blog_id])
+
+    @postsbypage=10
+    @allposts=Post.where({ published: true }).sort(date: -1)
+    @nbpages=(@allposts.count/@postsbypage)+1
+    if defined? params[:data][:page]
+      @page=params[:data][:page]
+    else
+      @page=1
+    end
+    
+    postsquery=Post.where({ published: true }).sort(date: -1).limit(@postsbypage.to_i*@page.to_i)
+    @posts=[]
+    postsquery.to_a[@postsbypage.to_i*(@page.to_i-1)..@postsbypage.to_i*(@page.to_i)-1].each do |p|
+      @posts << p
+    end
     
     respond_to do |format|
       format.html
@@ -52,7 +66,7 @@ class BlogsController < ApplicationController
 
   def update
     @blog = Blog.find(params[:blog_id])
-    
+        
     respond_to do |format|
       if @blog.update_attributes(blog_params)
         format.html { redirect_to( @blog,notice: 'noghint') }

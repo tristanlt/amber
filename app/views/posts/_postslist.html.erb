@@ -1,0 +1,10 @@
+<ul>
+	<% @posts.each do |p| %>
+	<li><%= link_to(p.title, blog_post_path(@blog,p)) %> | <%= p.date %></li>
+	<%end%>
+</ul>
+<ul>
+	<% (1..@nbpages).each do |page| %>
+		<li> <%= link_to(page, url_options = {:data => {:page => page}}, html_options = {:class => (page==@page) ? nil : 'current'} )%> </li>
+	<% end %>
+</ul>
