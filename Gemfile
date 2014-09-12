@@ -37,5 +37,8 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'mongoid'
-gem 'jquery-rails'
 
+gem 'ckeditor'
+gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+
+gem 'sqlite3'
