@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# To load tristan.lt blog content
+require 'sqlite3'
 
 myblog = Blog.create(textid: 'blog', title: 'Another MongoDB Blog Energized by Rails', description: 'My blog', published: true)
 
@@ -26,3 +21,15 @@ billet2.tags << Tag.where(word: 'test')
 
 billet3=myblog.posts.create(title: 'Billet de test numéro 3', content: 'Gabuzomeu3', textid: 'billet-de-test3', published: true)
 billet3.tags << Tag.where(word: 'test')
+
+
+# import de la base blog tristan.lt
+db = SQLite3::Database.open "tristanlt-dev.db"
+stm = db.prepare "SELECT slug,title,created,content FROM blog_blogpost"
+rs = stm.execute 
+    
+rs.each do |row|
+  baffouille=myblog.posts.create(title: row[1], content: row[3], textid: row[0],date: row[2] ,published: true)
+  print(row[2])
+end
+    
