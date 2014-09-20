@@ -14,33 +14,23 @@ patch ':blog_id' => 'blogs#update'
 put ':blog_id' => 'blogs#update'
 delete ':blog_id' => 'blogs#destroy'
 
+# Routes about TAGS
+get ':blog_id/tags/tagtool' => 'tags#tagtool'
+post ':blog_id/tags' => 'tags#index', as: :tags
+post ':blog_id/tags' => 'tags#create'
+get ':blog_id/tags/:word' => 'tags#show', as: :blog_tag
+post ':blog_id/tags/:word' => 'tags#update'
+delete ':blog_id/tags/:word' => 'tags#destroy'
+
 get ':blog_id/posts' => 'posts#index', as: :posts
 get ':blog_id/posts/new' => 'posts#new', as: :new_post
 post ':blog_id/posts' => 'posts#create'
 
-#get ':blog_id/:post_id' => 'posts#show', as: :post, as: :blog_post
 get ':blog_id/:post_id' => 'posts#show', as: :blog_post
 get ':blog_id/:post_id/edit' => 'posts#edit', as: :edit_post
 patch ':blog_id/:post_id' => 'posts#update'
 put ':blog_id/:post_id' => 'posts#update'
 delete ':blog_id/:post_id' => 'posts#destroy'
-
-resources :tags
-
-#get ':blogtextid/category/:word' => 'tags#show'
-#get ':blogtextid/new' => 'posts#new'
-#get ':blogtextid/:posttextid/edit' => 'posts#edit'
-#post ':blogtextid' => 'posts#create'
-#post ':blogtextid/:posttextid' => 'posts#update'
-#get ':blogtextid/:posttextid' => 'posts#show'
-
-
-#get ':blog_id' => 'blogs#posts#index'
-#resources :blogs do
-#  resources :posts, shallow: true
-#end
-
-#resources :posts
 
 
 
