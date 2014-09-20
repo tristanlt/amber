@@ -12,7 +12,7 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:blog_id])
 
     @postsbypage=10
-    @allposts=Post.where({ published: true }).sort(date: -1)
+    @allposts=@blog.posts.where({ published: true }).sort(date: -1)
     @nbpages=(@allposts.count/@postsbypage)+1
     if defined? params[:data][:page]
       @page=params[:data][:page]
@@ -20,7 +20,7 @@ class BlogsController < ApplicationController
       @page=1
     end
     
-    postsquery=Post.where({ published: true }).sort(date: -1).limit(@postsbypage.to_i*@page.to_i)
+    postsquery=@blog.posts.where({ published: true }).sort(date: -1).limit(@postsbypage.to_i*@page.to_i)
     @posts=[]
     postsquery.to_a[@postsbypage.to_i*(@page.to_i-1)..@postsbypage.to_i*(@page.to_i)-1].each do |p|
       @posts << p
