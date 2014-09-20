@@ -1,6 +1,3 @@
-<h1>Post of category</h1>
-<% @posts.each do |post| %>
+<h1>Post of category <%= @tag.word %></h1>
 
-<%= render post %>
-
-<% end %>
+<%= render "posts/postslist" %>
