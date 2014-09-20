@@ -1,11 +1,27 @@
 class TagsController < ApplicationController
+  
   def index
     # Index list tags with totals of posts and blogs occurances
-    @tags = Tag.all  
+    blog = Blog.find(params[:blog_id])
+    @tags = blog.tags.all
+
+    logger.debug(params[:relatedwords])
+
+    # Retrieve tags id by theses words from relatedwords POST params
+    relatedtags =[]
+    blog.tags.in(word: params[:relatedwords]).each {|t| relatedtags << t}
     
     out=[]
     @tags.each do |t|
-      out << {word: t['word'], posts: t.posts.size, blogs: t.blogs.size}
+      score=0
+      t.posts.each do |p|
+        relatedtags.each do |rt|
+          if p.tag_ids.include?(BSON::ObjectId.from_string(rt._id))
+             score=score+1
+          end
+        end
+      end
+      out << {id: t['_id'], word: t['word'], posts: t.posts.size, heat: score}
     end
 
     respond_to do |format|
@@ -14,21 +30,36 @@ class TagsController < ApplicationController
   end
   
   def show
-    @tag = Tag.where(word: params[:word]).first
-    @blog = Blog.where(textid: params[:blogtextid]).first
-    logger.debug(@blog.title)
-    @posts = @tag.posts.where(:blog_id => @blog.id)
+    @blog = Blog.find(params[:blog_id])
+    logger.debug(params)
+    @tag = @blog.tags.where({word:params[:word]}).first
+
+    @allposts = @tag.posts.where({ published: true })
+
+    @postsbypage=10
+    @nbpages=(@allposts.count/@postsbypage)+1
+    if defined? params[:data][:page]
+      @page=params[:data][:page]
+    else
+      @page=1
+    end
+    postsquery=@allposts.where({ published: true }).sort(date: -1).limit(@postsbypage.to_i*@page.to_i)
+    @posts=[]
+    postsquery.to_a[@postsbypage.to_i*(@page.to_i-1)..@postsbypage.to_i*(@page.to_i)-1].each do |p|
+      @posts << p
+    end
     
     respond_to do |format|
       format.html
       format.json { render json: @posts }
     end
   end
-  
+
 def create
     # Tag creation do not have a distincts view but just a _partial and a javascript adder
-    # $.post('http://localhost:3000/category/create', {word: 'tag13').done(function (data) { alert(data.msg.toString()); });
-    @tag = Tag.create(word: params[:word])            
+    # $.post('http://localhost:3000/blogid/tags/create', {word: 'tag13').done(function (data) { alert(data.msg.toString()); });
+    blog = Blog.find(params[:blog_id])
+    @tag = blog.tags.create(word: params[:word])        
     respond_to do |format|
       if @tag.save
         msg = { 'msg' => 'created' }
@@ -40,6 +71,43 @@ def create
     end
 end
 
+def update
+    # Tag update should use oid in place of word 
+    # $.post('http://localhost:3000/blog/tags/gwinGdfs', {newword: 'gwinGd fs'});
+    blog = Blog.find(params[:blog_id])
+    @tag = blog.tags.where({word: params[:word]}).first
+    respond_to do |format|
+      if @tag.update_attributes({word: params[:newword]})
+        logger.debug(@tag.word)
+        msg = { 'msg' => 'updated' }
+        format.json { render json: msg }
+      else
+        @tag.save
+        msg = { 'msg' => @tag.errors.full_messages }
+        format.json { render json: msg }
+      end
+    end
+end
+
+def destroy
+    # Tag destroy should use oid in place of word 
+    # $.post('http://localhost:3000/blog/tags/gwinGdfs/destroy');
+    blog = Blog.find(params[:blog_id])
+    @tag = blog.tags.where({word: params[:word]}).first
+    respond_to do |format|
+      if @tag.destroy
+        msg = { 'msg' => 'destroyed' }
+        format.json { render json: msg }
+      else
+        msg = { 'msg' => @tag.errors.full_messages }
+        format.json { render json: msg }
+      end
+    end
+end
+
+def tagtool
   
-  
+end
+
+
 end
