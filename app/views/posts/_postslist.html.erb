@@ -1,10 +1,20 @@
-<ul>
-	<% @posts.each do |p| %>
-	<li><%= link_to(p.title, blog_post_path(@blog,p)) %> | <%= p.date %></li>
-	<%end%>
-</ul>
-<ul>
+<% @posts.each do |p| %>
+	<article>
+	<header>
+	<h2 class="subheader"><%= link_to(p.title, blog_post_path(@blog,p)) %></h1>
+	<p> Publié le <%= time_tag p.date %> </p>
+	</header>
+	<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe %>
+	</article>
+	<footer>
+		Comments
+	</footer>
+<%end%>
+
+<ul class="pagination">
+	<% if (@page.to_i!=1) %> <li class="arrow"> <%= link_to("<", url_options = {:data => {:page => @page.to_i-1}}) %> </li> <% end %>
 	<% (1..@nbpages).each do |page| %>
-		<li> <%= link_to(page, url_options = {:data => {:page => page}}, html_options = {:class => (page==@page) ? nil : 'current'} )%> </li>
+		<li class="<%= 'current' if (@page.to_s==page.to_s) %>"> <%= link_to(page, url_options = {:data => {:page => page}}, html_options = {:class => (page==@page) ? nil : 'current'} )%> </li>
 	<% end %>
+	 <% if (@page.to_i!=@nbpages.to_i ) %> <li class="arrow"> <%= link_to(">", url_options = {:data => {:page => @page.to_i+1}}) %> </li> <%end%>
 </ul>

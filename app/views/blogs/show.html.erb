@@ -1,5 +1,21 @@
-<h1><%= @blog.title %></h1>
-<p><%= @blog.description%></p>
+<% title @blog.title %>
+<div class='row'>
+	
+	<div class='columns small-12 large-12'>
+	<hgroup>
+	<h1><%= @blog.title %></h1>
+	<h3 class="subheader"><%= @blog.description%></p>
+	</hgroup>
+	</div>
+	
+</div>
 
-
-<%= render "posts/postslist"  %>
+<div class='row'>
+	<div id="postslist" class='columns small-9'>
+		<%= render "posts/postslist"  %>
+	</div>
+	
+	<div id="postsinfo" class='columns small-3'>
+		<%= render "tags/tagtool"%>
+	</div>
+</div>
