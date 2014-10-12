@@ -12,15 +12,13 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation
  */
 
+@import "foundation";
+
 #ambertagscloud {
-	float: left;
-	display: block;
-	height: 300px;
-	width: 300px;
-	margin-right: 20px;
-	margin-left: 20px;
+  text-align: center;
 }
 
 .tag-selected {

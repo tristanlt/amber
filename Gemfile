@@ -42,3 +42,7 @@ gem 'ckeditor'
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 
 gem 'sqlite3'
+
+gem 'foundation-rails'
+
+gem 'nokogiri'

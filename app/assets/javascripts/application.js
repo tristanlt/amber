@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require_tree .
 //= require ckeditor/init
+//= require jquery.lockfixed.min
 
 function drawtagcloud(data) {
 	// define min max for posts and heat
@@ -61,6 +62,8 @@ function updatetagcloud(relatedwords) {
      
 };
 
+
+
 $(document).on('click','.tag',function(){
 		if ($(this).hasClass('tag-selected')) {
 			var index=$.inArray($(this).attr('id').replace('tag-', ''), relatedwords);
@@ -77,8 +80,4 @@ $(document).on('click','.tag',function(){
 $(document).ready(function() {
 	relatedwords=[];
 	updatetagcloud(relatedwords);
-
-	$("#updatebutton").click(function() {
-	updatetagcloud(relatedwords=['thunderbird','firefox']);	
 	});
-});
