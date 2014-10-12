@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
 mount Ckeditor::Engine => '/ckeditor'
+
+get 'sitemap' => 'sitemap#index'
 
 get 'blogs' => 'blogs#index', as: :blogs
 get 'blogs/new' => 'blogs#new', as: :new_blog
