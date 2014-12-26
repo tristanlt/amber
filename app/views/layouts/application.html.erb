@@ -23,7 +23,29 @@
 				<li><a href="/page1">Page1</a></li>
 			</ul>
 	</section>
+	<section class="top-bar-section"> <!-- Right Nav Section --> 
+			<ul class="right">
+	<% if user_signed_in? %>
+  	<li>Logged in as <strong><%= current_user.email %></strong>.</li>
+  		<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+  		<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+	<% else %>
+  		<li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
+  		<li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+	<% end %>
+	</ul>
+	</section>	
 </nav>
+<% if alert %>
+<div data-alert class="alert-box alert radius">
+  <%= alert %>
+</div>
+<% end %>
+<% if notice %>
+<div data-alert class="alert-box info radius">
+  <%= notice %>
+</div>
+<% end %>
 
 <%= yield %>
 

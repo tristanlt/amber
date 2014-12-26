@@ -46,3 +46,5 @@ gem 'sqlite3'
 gem 'foundation-rails'
 
 gem 'nokogiri'
+
+gem 'devise'
