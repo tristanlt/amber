@@ -1,7 +1,8 @@
 # To load tristan.lt blog content
 require 'sqlite3'
 
-myblog = Blog.create(textid: 'blog', title: 'Another MongoDB Blog Energized by Rails', description: 'My blog', published: true)
+myblog = Blog.create!(textid: 'blog', title: 'Another MongoDB Blog Energized by Rails', description: 'My blog', published: true)
+myblog.save
 
 myblog.tags.create(word: 'mongodb')
 myblog.tags.create(word: 'rails')
@@ -12,8 +13,6 @@ myblog.tags.create(word: 'cookies')
 myblog.tags.create(word: 'muffins')
 myblog.tags.create(word: 'chocolat')
 myblog.tags.create(word: 'pie')
-
-
 
 billet=myblog.posts.create(title: 'Chocolat Muffins', content: 'Gabuzomeu', textid: 'chocolat-muffins', published: true)
 billet.tags << myblog.tags.where({word: 'bakerie'}).first

@@ -5,6 +5,6 @@ require File.expand_path('../application', __FILE__)
 Rails.application.initialize!
 
 Amber::Application.configure do
-  config.shorttitle = Amber
+  config.shorttitle = 'Amber'
   config.longtitle = "Another MongoDB Blog Energized by Rails"
 end
