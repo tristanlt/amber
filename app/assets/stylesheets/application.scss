@@ -12,10 +12,13 @@
  *
  *= require_tree .
  *= require_self
- *= require foundation
+ *= require foundation_and_overrides 
  */
 
-@import "foundation";
+header > p {
+  color: grey;
+  font-style: italic;
+}
 
 #ambertagscloud {
   text-align: center;

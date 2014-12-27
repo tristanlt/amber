@@ -17,17 +17,15 @@
 	</ul> 
 	<section class="top-bar-section"> <!-- Right Nav Section --> 
 			<ul class="left">
-				<li><a href="/me">Me</a></li>
-				<li><a href="/blog">Blog</a></li>
-				<li><a href="/page1">Page1</a></li>
-				<li><a href="/page1">Page1</a></li>
+				<% Blog.each do |b| %>
+				<li><%= link_to b.textid,b %></li>
+				<% end %>
 			</ul>
 	</section>
 	<section class="top-bar-section"> <!-- Right Nav Section --> 
 			<ul class="right">
 	<% if user_signed_in? %>
-  	<li>Logged in as <strong><%= current_user.email %></strong>.</li>
-  		<li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+	  	<li><%= link_to  current_user.email, edit_user_registration_path, :class => 'navbar-link' %></li>
   		<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
 	<% else %>
   		<li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
