@@ -4,7 +4,6 @@
   <tr>
     <th>textid</th>
     <th>Title</th>
-    <th>Content</th>
     <th>Published</th>
     <th>DateTime</th>
   </tr>
@@ -12,8 +11,7 @@
 <% @posts.each do |p| %>
   <tr>
     <td><%= p.textid %></td>
-    <td><%= p.title %></td>
-    <td><%= p.content %></td>
+    <td><%= link_to p.title, blog_post_path(@blog,p) %></td>
     <td><%= p.published.to_s %></td>
     <td><%= p.date %></td>
   </tr>

@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   def index
     logger.debug(params)
     # Index list posts
-    @posts = Post.all  
+    @blog = Blog.find(params[:blog_id])
+    @posts = @blog.posts
     
     respond_to do |format|
       format.html
@@ -50,7 +51,9 @@ class PostsController < ApplicationController
         
     respond_to do |format|
       if @post.save
+        logger.debug("start @post.id")
         logger.debug(@post.id)
+        logger.debug("end @post.id")
         format.html { redirect_to  blog_post_path(@blog, @post), notice: 'Post created' }
         format.json { render json: @post, status: :created, location: @post }
       else
