@@ -2,9 +2,11 @@
 <h1><%= @post.title %></h1>
 <br />
 <%= @post.content.html_safe%>
+<% if @post.comments %>
 <h2>Comments</h2>
 <ul>
 <% @post.comments.each do |c| %>
 	<li><%= c.content %></li>
 <% end %>
 </ul>
+<% end %>

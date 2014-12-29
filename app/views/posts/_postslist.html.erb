@@ -7,7 +7,12 @@
 	<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe %>
 	</article>
 	<footer>
-		Comments
+	<% if p.tags.size != 0 %>
+		tags : 
+		<% p.tags.each do |t| %>
+			<%= link_to t.word,blog_tag_path(@blog,t) %>
+		<% end %>
+	<% end %>
 	</footer>
 <%end%>
 
