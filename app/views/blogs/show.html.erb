@@ -16,6 +16,14 @@
 	</div>
 	
 	<div id="postsinfo" class='columns small-3'>
+	
+		<h2>Recent posts</h2>
+		<% @blog.posts.where({ published: true }).sort(date: -1).limit(5).each do |p| %>
+			<%= link_to(p.title, blog_post_path(@blog,p)) %> <br />
+		<% end %>
+		<hr />
+		<h2>Tags</h2>
 		<%= render "tags/tagtool"%>
+	
 	</div>
 </div>

@@ -1,19 +1,22 @@
 <% @posts.each do |p| %>
-	<article>
-	<header>
-	<h2 class="subheader"><%= link_to(p.title, blog_post_path(@blog,p)) %></h1>
-	<p> Publié le <%= time_tag p.date %> </p>
-	</header>
-	<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe %>
+	<article class="blogpost">
+		
+		<header class="posthead">
+			<h2 class="subheader"><%= link_to(p.title, blog_post_path(@blog,p)) %></h1>
+			<p> Publié le <%= time_tag p.date %> </p>
+		</header>
+		
+		<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe+link_to("Read more...", blog_post_path(@blog,p)) %>
+		
+		<footer class="postfoot">
+			<% if p.tags.size != 0 %>
+				tags : 
+				<% p.tags.each do |t| %>
+					<%= link_to t.word,blog_tag_path(@blog,t) %>
+				<% end %>
+			<% end %>
+		</footer>
 	</article>
-	<footer>
-	<% if p.tags.size != 0 %>
-		tags : 
-		<% p.tags.each do |t| %>
-			<%= link_to t.word,blog_tag_path(@blog,t) %>
-		<% end %>
-	<% end %>
-	</footer>
 <%end%>
 
 <ul class="pagination">
