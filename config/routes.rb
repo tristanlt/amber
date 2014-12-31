@@ -29,15 +29,15 @@ get ':blog_id/posts/new' => 'posts#new', as: :new_post
 post ':blog_id/posts' => 'posts#create'
 
 get ':blog_id/:post_id' => 'posts#show', as: :blog_post
-get ':blog_id/:post_id/edit' => 'posts#edit', as: :edit_post
+get ':blog_id/:post_id/edit' => 'posts#edit', as: :edit_blog_post
 patch ':blog_id/:post_id' => 'posts#update'
 put ':blog_id/:post_id' => 'posts#update'
-delete ':blog_id/:post_id' => 'posts#destroy'
+delete ':blog_id/:post_id' => 'posts#destroy', as: :destroy_blog_post
 
 
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+ root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

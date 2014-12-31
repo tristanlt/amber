@@ -6,6 +6,7 @@
     <th>Title</th>
     <th>Published</th>
     <th>DateTime</th>
+    <th>Actions</th>
   </tr>
 
 <% @posts.each do |p| %>
@@ -14,6 +15,8 @@
     <td><%= link_to p.title, blog_post_path(@blog,p) %></td>
     <td><%= p.published.to_s %></td>
     <td><%= p.date %></td>
+    <td><%= link_to 'Edit', edit_blog_post_path(@blog,p) %>
+    <%= link_to 'Destroy', destroy_blog_post_path(@blog,p), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery.datetimepicker
  *= require foundation_and_overrides 
  */
 
@@ -55,6 +56,20 @@ header > p {
 .posts-4 { font-size: 22px }
 .posts-5 { font-size: 24px }
 
+.alert-box {
+  margin-top: 5px;
+}
+
+article.blogpost {
+  border-left: 2px #DDDDDD solid;
+  padding-left: 4px;
+  margin-bottom: 15px;
+}
+
+article > h4, article > h3, article > h2, article > h1{
+  display: block;
+  clear: both;
+}
 pre, code {
   overflow: auto;
   background-color: #DDDDDD;

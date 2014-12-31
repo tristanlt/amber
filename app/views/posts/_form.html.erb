@@ -21,9 +21,12 @@
   </div>
   <div class="field">
     <%= f.label :date %><br />
-    <%= select_date Date.today, prefix: :date %>
+    <%= f.datetime_field :date, :class => 'datetimepicker' %>
   </div>
-  
+  <div class="field">
+    <%= f.label :published %><br />
+    <%= f.check_box :published %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

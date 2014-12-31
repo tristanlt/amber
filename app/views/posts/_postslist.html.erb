@@ -3,18 +3,20 @@
 		
 		<header class="posthead">
 			<h2 class="subheader"><%= link_to(p.title, blog_post_path(@blog,p)) %></h1>
-			<p> Publié le <%= time_tag p.date %> </p>
-		</header>
-		
-		<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe+link_to("Read more...", blog_post_path(@blog,p)) %>
-		
-		<footer class="postfoot">
-			<% if p.tags.size != 0 %>
-				tags : 
+			<p> Publish on <%= time_tag p.date %>
+				<% if p.tags.size != 0 %>
+				- tagged :   
 				<% p.tags.each do |t| %>
 					<%= link_to t.word,blog_tag_path(@blog,t) %>
 				<% end %>
 			<% end %>
+			</p>
+		</header>
+		
+		<%= Nokogiri::HTML.parse(p.content).css('p').first.to_s.html_safe %>
+		
+		<footer class="postfoot">
+			<%= link_to("Read more...", blog_post_path(@blog,p)) %>
 		</footer>
 	</article>
 <%end%>

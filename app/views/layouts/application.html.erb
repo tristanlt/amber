@@ -11,6 +11,11 @@
   
 </head>
 <body>
+	
+<script type="text/javascript" charset="utf-8">
+	var ROOT_PATH = '<%= root_path %>';
+</script>
+
 <nav class="top-bar" data-topbar>
 	<ul class="title-area"> <li class="name" class="active"> <h1><a href="/"><%= Amber::Application.config.shorttitle %></a></h1> </li>
 		<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li> 
@@ -36,20 +41,16 @@
 </nav>
 
 <div class='row'>
-	
-	<div class='columns small-12 large-12'>
-
+<div class='columns small-12 large-12'>
 <% if alert %>
-<div data-alert class="alert-box alert radius">
-  <%= alert %>
-</div>
+<div data-alert class="alert-box alert radius"> <%= alert %> </div>
 <% end %>
 <% if notice %>
-<div data-alert class="alert-box info radius">
-  <%= notice %>
-</div>
+<div data-alert class="alert-box info radius"> <%= notice %> </div>
 <% end %>
+</div>
 
+<div class='columns small-12 large-12'>
 <%= yield %>
 </div>
 

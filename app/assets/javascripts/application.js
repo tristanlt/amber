@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.datetimepicker
+//= require jquery.datetimepicker/init
 //= require turbolinks
 //= require_tree .
 //= require ckeditor/init
@@ -54,7 +56,7 @@ function drawtagcloud(data) {
 }
 
 function updatetagcloud(relatedwords) {
-	$.post('http://localhost:3000/blog/tags',
+	$.post(ROOT_PATH+'/blog/tags',
        {relatedwords: relatedwords},
        function(data,status) {
 			drawtagcloud(data);

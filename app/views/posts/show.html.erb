@@ -1,12 +1,29 @@
-<% title @blog.id+" / "+@post.title %>
-<h1><%= @post.title %></h1>
-<br />
+<article>
+
+<header>
+	<h1><%= @post.title %></h1>
+	<p> Publish on <%= time_tag @post.date %>
+				<% if @post.tags.size != 0 %>
+				- tagged :   
+				<% @post.tags.each do |t| %>
+					<%= link_to t.word,blog_tag_path(@blog,t) %>
+				<% end %>
+			<% end %>
+	</p>
+</header>
+
 <%= @post.content.html_safe%>
-<% if @post.comments %>
-<h2>Comments</h2>
-<ul>
-<% @post.comments.each do |c| %>
-	<li><%= c.content %></li>
+
+<% if @post.comments.size != 0 %>
+	<h2>Comments</h2>
+	<ul>
+	<% @post.comments.each do |c| %>
+		<li><%= c.content %></li>
+	<% end %>
+	</ul>
 <% end %>
-</ul>
-<% end %>
+
+<footer>
+</footer>
+
+</article>

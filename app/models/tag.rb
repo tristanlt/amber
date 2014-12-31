@@ -4,4 +4,9 @@ class Tag
   has_and_belongs_to_many :posts
   belongs_to :blog
   validates_uniqueness_of :word
+  
+  def to_param
+    word
+  end
+
 end

@@ -12,11 +12,10 @@ class PostsController < ApplicationController
   end
   
   def show
-    logger.debug(params)
-    # Show /:blogtextid/:posttextid
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.find(params[:post_id])
-    
+    logger.debug(@post.title)
+    logger.debug(@post.date)
     respond_to do |format|
       format.html
       format.json { render json: @post }
@@ -45,15 +44,11 @@ class PostsController < ApplicationController
   # POST /:blogtextid
   # POST /:blogtextid.json
   def create
-    logger.debug(params)
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.new(post_params)
-        
+    
     respond_to do |format|
       if @post.save
-        logger.debug("start @post.id")
-        logger.debug(@post.id)
-        logger.debug("end @post.id")
         format.html { redirect_to  blog_post_path(@blog, @post), notice: 'Post created' }
         format.json { render json: @post, status: :created, location: @post }
       else
@@ -68,19 +63,24 @@ class PostsController < ApplicationController
   # PUT /:blogtextid/:posttextid
   # PUT /:blogtextid/:posttextid.json
   def update
-    logger.debug(params)    
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.find(params[:post_id])
-    
     respond_to do |format|
       if @post.update_attributes(post_params)
-        format.html { redirect_to( blog_post_path(@blog, @post) ,notice: 'noghint') }
+        format.html { redirect_to( blog_post_path(@blog, @post) ,notice: 'Post was modified') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    blog = Blog.find(params[:blog_id])
+    post = blog.posts.find(params[:post_id])
+    post.destroy
+    redirect_to( blog_path(blog) ,notice: 'Post deleted')
   end
 
   private
