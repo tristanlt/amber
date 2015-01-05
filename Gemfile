@@ -49,3 +49,4 @@ gem 'foundation-rails'
 gem 'nokogiri'
 
 gem 'devise'
+gem 'pundit'

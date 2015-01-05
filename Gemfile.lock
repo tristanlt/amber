@@ -97,6 +97,8 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     polyglot (0.3.5)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -170,6 +172,7 @@ DEPENDENCIES
   mongoid
   mongoid-paperclip
   nokogiri
+  pundit
   rails (= 4.1.5)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

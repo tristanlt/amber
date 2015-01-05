@@ -5,6 +5,8 @@ class PostsController < ApplicationController
     @blog = Blog.find(params[:blog_id])
     @posts = @blog.posts
     
+    authorize @posts
+    
     respond_to do |format|
       format.html
       format.json { render json: @posts }
@@ -12,8 +14,11 @@ class PostsController < ApplicationController
   end
   
   def show
-    @blog = Blog.find(params[:blog_id])
+    @blog = Blog.find(params[:blog_id])  
     @post = @blog.posts.find(params[:post_id])
+    
+    authorize @post
+    
     logger.debug(@post.title)
     logger.debug(@post.date)
     respond_to do |format|
@@ -24,9 +29,10 @@ class PostsController < ApplicationController
 
   # Get /:blogtextid/new
   def new
-    logger.debug(params)
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.new
+    
+    authorize @post
     
     respond_to do |format|
       format.html # new.html.erb
@@ -36,9 +42,11 @@ class PostsController < ApplicationController
 
   # Get /:blogtextid/:posttextid/edit
   def edit
-    logger.debug(params)
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.find(params[:post_id])
+
+    authorize @post
+
   end
 
   # POST /:blogtextid
@@ -46,6 +54,8 @@ class PostsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.new(post_params)
+    
+    authorize @post
     
     respond_to do |format|
       if @post.save
@@ -65,6 +75,9 @@ class PostsController < ApplicationController
   def update
     @blog = Blog.find(params[:blog_id])
     @post = @blog.posts.find(params[:post_id])
+    
+    authorize @post
+    
     respond_to do |format|
       if @post.update_attributes(post_params)
         format.html { redirect_to( blog_post_path(@blog, @post) ,notice: 'Post was modified') }
@@ -79,6 +92,7 @@ class PostsController < ApplicationController
   def destroy
     blog = Blog.find(params[:blog_id])
     post = blog.posts.find(params[:post_id])
+    authorize post
     post.destroy
     redirect_to( blog_path(blog) ,notice: 'Post deleted')
   end

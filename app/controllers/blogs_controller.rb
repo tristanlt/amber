@@ -2,6 +2,8 @@ class BlogsController < ApplicationController
   def index
     @blogs = Blog.all  
     
+    authorize @blogs
+    
     respond_to do |format|
       format.html
       format.json { render json: @blogs }
@@ -10,7 +12,9 @@ class BlogsController < ApplicationController
   
   def show
     @blog = Blog.find(params[:blog_id])
-
+    
+    authorize @blog
+    
     @postsbypage=10
     @allposts=@blog.posts.where({ published: true }).sort(date: -1)
     @nbpages=(@allposts.count/@postsbypage)+1
@@ -34,7 +38,9 @@ class BlogsController < ApplicationController
 
   def new
     @blog = Blog.new
-    
+
+    authorize @blog
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @blog }
@@ -44,13 +50,16 @@ class BlogsController < ApplicationController
   # Get /:blogtextid/:Blogtextid/edit
   def edit
     @blog = Blog.find(params[:blog_id])
+    authorize @blog
   end
 
   # Blog /:blogtextid
   # Blog /:blogtextid.json
   def create
     @blog = Blog.new(blog_params)
-        
+     
+    authorize @blog
+    
     respond_to do |format|
       if @blog.save
         format.html { redirect_to  @blog, notice: 'Blog created' }
@@ -66,7 +75,9 @@ class BlogsController < ApplicationController
 
   def update
     @blog = Blog.find(params[:blog_id])
-        
+     
+    authorize @blog
+      
     respond_to do |format|
       if @blog.update_attributes(blog_params)
         format.html { redirect_to( @blog,notice: 'noghint') }

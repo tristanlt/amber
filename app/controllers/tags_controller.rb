@@ -1,12 +1,14 @@
 class TagsController < ApplicationController
   
   def index
+    authorize Tag
   end
   
   def show
     @blog = Blog.find(params[:blog_id])
-    logger.debug(params)
     @tag = @blog.tags.where({word:params[:word]}).first
+
+    authorize @tag
 
     @allposts = @tag.posts.where({ published: true })
 
@@ -33,7 +35,10 @@ def create
     # Tag creation do not have a distincts view but just a _partial and a javascript adder
     # $.post('http://localhost:3000/blogid/tags/create', {word: 'tag13').done(function (data) { alert(data.msg.toString()); });
     blog = Blog.find(params[:blog_id])
-    @tag = blog.tags.create(word: params[:word])        
+    @tag = blog.tags.create(word: params[:word])
+    
+    authorize @tag
+        
     respond_to do |format|
       if @tag.save
         msg = { 'msg' => 'created' }
@@ -50,6 +55,9 @@ def update
     # $.post('http://localhost:3000/blog/tags/gwinGdfs', {newword: 'gwinGd fs'});
     blog = Blog.find(params[:blog_id])
     @tag = blog.tags.where({word: params[:word]}).first
+    
+    authorize @tag
+    
     respond_to do |format|
       if @tag.update_attributes({word: params[:newword]})
         logger.debug(@tag.word)
@@ -68,6 +76,9 @@ def destroy
     # $.post('http://localhost:3000/blog/tags/gwinGdfs/destroy');
     blog = Blog.find(params[:blog_id])
     @tag = blog.tags.where({word: params[:word]}).first
+    
+    authorize @tag
+    
     respond_to do |format|
       if @tag.destroy
         msg = { 'msg' => 'destroyed' }
@@ -83,8 +94,8 @@ def tagtool
   # Index list tags with totals of posts and blogs occurances
     blog = Blog.find(params[:blog_id])
     @tags = blog.tags.all
-    logger.debug(@tags)
-    logger.debug(params[:relatedwords])
+
+    authorize @tags
 
     # Retrieve tags id by theses words from relatedwords POST params
     relatedtags =[]

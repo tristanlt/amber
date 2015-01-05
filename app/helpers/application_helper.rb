@@ -2,6 +2,7 @@ module ApplicationHelper
     def title(page_title)
       content_for(:title) { Amber::Application.config.shorttitle.to_s+" | "+page_title.to_s }
     end
+    
     def tagtool(blog)
       @tags = blog.tags.all
 
@@ -55,9 +56,6 @@ module ApplicationHelper
         logger.debug((s['posts'].to_i-postsmin)/steplevel)
         s[:level]=(s[:posts].to_i-postsmin)/steplevel
         s[:heat]=(s[:posts].to_i-postsmin)/steplevel
-        logger.debug(s[:word])
-        logger.debug(s[:heat])
-        logger.debug(s[:level])
       end
      
       return @out
