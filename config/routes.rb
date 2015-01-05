@@ -17,8 +17,8 @@ put ':blog_id' => 'blogs#update'
 delete ':blog_id' => 'blogs#destroy'
 
 # Routes about TAGS
-get ':blog_id/tags/tagtool' => 'tags#tagtool'
-get ':blog_id/tags' => 'tags#index', as: :tags
+post ':blog_id/tags/tagtool' => 'tags#tagtool'
+get ':blog_id/tags' => 'tags#index', as: :blog_tags
 post ':blog_id/tags' => 'tags#create'
 get ':blog_id/tags/:word' => 'tags#show', as: :blog_tag
 post ':blog_id/tags/:word' => 'tags#update'

@@ -1,29 +1,35 @@
-<article>
-
-<header>
-	<h1><%= @post.title %></h1>
-	<p> Publish on <%= time_tag @post.date %>
-				<% if @post.tags.size != 0 %>
-				- tagged :   
-				<% @post.tags.each do |t| %>
-					<%= link_to t.word,blog_tag_path(@blog,t) %>
+<div class='row'>
+	<div id="postslist" class='columns small-9'>
+	<article>
+		<header>
+			<h1><%= @post.title %></h1>
+			<div class="articlemetadata"><span><%= time_tag @post.date %></span>
+				 <% if @post.tags.size != 0 %>
+				 <span> | </span>
+				 Tags :   
+					<% @post.tags.each do |t| %>
+						<%= link_to t.word,blog_tag_path(@blog,t) %>
+					<% end %>
 				<% end %>
+			</div>
+		</header>
+		
+		<%= @post.content.html_safe%>
+		
+		<% if @post.comments.size != 0 %>
+			<h2>Comments</h2>
+			<ul>
+			<% @post.comments.each do |c| %>
+				<li><%= c.content %></li>
 			<% end %>
-	</p>
-</header>
-
-<%= @post.content.html_safe%>
-
-<% if @post.comments.size != 0 %>
-	<h2>Comments</h2>
-	<ul>
-	<% @post.comments.each do |c| %>
-		<li><%= c.content %></li>
-	<% end %>
-	</ul>
-<% end %>
-
-<footer>
-</footer>
-
-</article>
+			</ul>
+		<% end %>
+		
+		<footer>
+		</footer>
+	</article>
+	</div>
+	<div id="postsinfo" class='columns small-3'>
+		<%= render "layouts/rightcolumn" %>
+	</div>
+</div>

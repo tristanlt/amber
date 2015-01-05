@@ -1,32 +1,6 @@
 class TagsController < ApplicationController
   
   def index
-    # Index list tags with totals of posts and blogs occurances
-    blog = Blog.find(params[:blog_id])
-    @tags = blog.tags.all
-
-    logger.debug(params[:relatedwords])
-
-    # Retrieve tags id by theses words from relatedwords POST params
-    relatedtags =[]
-    blog.tags.in(word: params[:relatedwords]).each {|t| relatedtags << t}
-    
-    out=[]
-    @tags.each do |t|
-      score=0
-      t.posts.each do |p|
-        relatedtags.each do |rt|
-          if p.tag_ids.include?(BSON::ObjectId.from_string(rt._id))
-             score=score+1
-          end
-        end
-      end
-      out << {id: t['_id'], word: t['word'], posts: t.posts.size, heat: score}
-    end
-
-    respond_to do |format|
-      format.json { render json: out }
-    end
   end
   
   def show
@@ -106,7 +80,33 @@ def destroy
 end
 
 def tagtool
-  
+  # Index list tags with totals of posts and blogs occurances
+    blog = Blog.find(params[:blog_id])
+    @tags = blog.tags.all
+    logger.debug(@tags)
+    logger.debug(params[:relatedwords])
+
+    # Retrieve tags id by theses words from relatedwords POST params
+    relatedtags =[]
+    blog.tags.in(word: params[:relatedwords]).each {|t| relatedtags << t}
+    
+    @out=[]
+    @tags.each do |t|
+      score=0
+      t.posts.each do |p|
+        relatedtags.each do |rt|
+          if p.tag_ids.include?(BSON::ObjectId.from_string(rt._id))
+             score=score+1
+          end
+        end
+      end
+      @out << {id: t['_id'], word: t['word'], posts: t.posts.size, heat: score}
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @out }
+    end
 end
 
 

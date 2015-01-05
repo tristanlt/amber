@@ -49,14 +49,15 @@ function drawtagcloud(data) {
     		$('#tag-'+data[key]['word']).attr('class', classtag);
     	}
     	else {
-    	tag='<span draggable="true" id="tag-'+data[key]['word']+'" class="'+classtag+'">'+data[key]['word']+' </span>';
+    	// tag='<span draggable="true" id="tag-'+data[key]['word']+'" class="'+classtag+'">'+data[key]['word']+'</span> ';
+    	tag='<span draggable="true" id="tag-'+data[key]['word']+'" class="'+classtag+'"><a href="'+ROOT_PATH+'/tags/'+data[key]['word']+'">'+data[key]['word']+'</a></span> ';
  		$('#ambertagscloud').append(tag);
  		}
 	}
 }
 
 function updatetagcloud(relatedwords) {
-	$.post(ROOT_PATH+'/blog/tags',
+	$.post(ROOT_PATH.concat('/tags/tagtool.json'),
        {relatedwords: relatedwords},
        function(data,status) {
 			drawtagcloud(data);
@@ -65,21 +66,21 @@ function updatetagcloud(relatedwords) {
 };
 
 
-
-$(document).on('click','.tag',function(){
-		if ($(this).hasClass('tag-selected')) {
-			var index=$.inArray($(this).attr('id').replace('tag-', ''), relatedwords);
-			if (index != -1) {
-				relatedwords.splice(index, 1);
-			}
-		}
-		else {
-			relatedwords.push($(this).attr('id').replace('tag-', ''));
-		};
-		updatetagcloud(relatedwords);
-	});
+// Commented smart tagtool for firsts versions, coming soon... 
+//$(document).on('click','.tag',function(){
+//		if ($(this).hasClass('tag-selected')) {
+//			var index=$.inArray($(this).attr('id').replace('tag-', ''), relatedwords);
+//			if (index != -1) {
+//				relatedwords.splice(index, 1);
+//			}
+//		}
+//		else {
+//			relatedwords.push($(this).attr('id').replace('tag-', ''));
+//		};
+//		updatetagcloud(relatedwords);
+//	});
 
 $(document).ready(function() {
-	relatedwords=[];
-	updatetagcloud(relatedwords);
+	//relatedwords=[];
+	//updatetagcloud(relatedwords);
 	});

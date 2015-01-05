@@ -1,3 +1,10 @@
-<div id='ambertagscloud'>	
+<div id='ambertagscloud'>
+	<% if defined?(@blog) %>
+		<% tagtool(@blog).each do |t| %>
+				<% elmtid='tag-'+t[:word] %>
+				<% elmtclass='classtag '+'heat-'+t[:heat].to_s+' posts-'+t[:level].to_s %>
+				<% elmthref=blog_path+'/tags/'+t[:word] %>
+				<%= link_to t[:word], elmthref, :class => elmtclass %>
+		<% end %>
+	<% end %>
 </div>
-

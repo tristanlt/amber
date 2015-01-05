@@ -1,0 +1,7 @@
+<ul>
+<% @out.each do |t| %>
+<li>
+<a href="<%= blog_tags_path %>/<%= t[:word] %>" <%= t[:word] %>" id="tag-<%= t[:word] %>" class="heat-<%= t[:heat] %>"><%= t[:word] %></a>(<%= t[:posts] %>)
+</li>
+<% end %>
+</ul>

@@ -15,10 +15,15 @@
  *= require jquery.datetimepicker
  *= require foundation_and_overrides 
  */
-
-header > p {
-  color: grey;
-  font-style: italic;
+article {
+  clear: both;
+}
+.articlemetadata {
+  color: #AAA;
+  margin-bottom: 15px;
+}
+.postfootreadmore {
+  float: right;
 }
 .postfoot {
   display: block;
@@ -33,11 +38,12 @@ header > p {
   text-align: center;
 }
 
-.tag-selected {
-	background: #266363;
-	color: #ffffff;
+.tag-selected::before {
+  content: '[';
 }
-
+ .tag-selected::after {
+   content: ']';
+ }
 .tag {
 	margin: 5px 5px 5px 5px;
 	}

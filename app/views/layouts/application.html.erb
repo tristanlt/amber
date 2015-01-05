@@ -13,7 +13,7 @@
 <body>
 	
 <script type="text/javascript" charset="utf-8">
-	var ROOT_PATH = '<%= root_path %>';
+	var ROOT_PATH = '<% if @blog %><%= blog_path %><% end %>';
 </script>
 
 <nav class="top-bar" data-topbar>
