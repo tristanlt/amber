@@ -17,3 +17,5 @@
 tristanlt-dev.db
 Gemfile.lock
 public/ckeditor_assets/pictures
+
+public/assets/**
