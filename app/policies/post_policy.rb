@@ -10,32 +10,56 @@ class PostPolicy
     if @user.present?
       Amber::Application.config.manager.include?(@user.email)
     else
-      @blog.published? and @post.blog.published?
+      @post.published? and @post.blog.published?
     end
   end
   
   def index?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def new?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def create?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def update?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def edit?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def destroy?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
 
 end

@@ -19,19 +19,35 @@ class TagPolicy
   end
   
   def new?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def update?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def edit?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
   
   def destroy?
-    Amber::Application.config.manager.include?(@user.email)
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      false
+    end
   end
 
 end
