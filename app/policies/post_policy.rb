@@ -7,10 +7,14 @@ class PostPolicy
   end
 
   def show?
-    if @user.present?
-      Amber::Application.config.manager.include?(@user.email)
+    if @post.published? and @post.blog.published?
+      true
     else
-      @post.published? and @post.blog.published?
+      if @user.present?
+        Amber::Application.config.manager.include?(@user.email)
+      else
+        false
+      end
     end
   end
   

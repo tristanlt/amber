@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-devise_for :users
+devise_for :users, :controllers => { :registrations => "registrations" } 
 
 mount Ckeditor::Engine => '/ckeditor'
 
@@ -35,9 +35,8 @@ put ':blog_id/:post_id' => 'posts#update'
 delete ':blog_id/:post_id' => 'posts#destroy', as: :destroy_blog_post
 
 
-
-  # You can have the root of your site routed with "root"
- root 'welcome#index'
+# You can have the root of your site routed with "root"
+root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
