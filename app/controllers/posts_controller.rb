@@ -19,8 +19,6 @@ class PostsController < ApplicationController
     
     authorize @post
     
-    logger.debug(@post.title)
-    logger.debug(@post.date)
     respond_to do |format|
       format.html
       format.json { render json: @post }

@@ -7,7 +7,11 @@ class BlogPolicy
   end
 
   def show?
-    true
+    if @user.present?
+      Amber::Application.config.manager.include?(@user.email)
+    else
+      @blog.published?
+    end
   end
   
   def index?
@@ -15,6 +19,10 @@ class BlogPolicy
   end
   
   def new?
+    Amber::Application.config.manager.include?(@user.email)
+  end
+  
+  def create?
     Amber::Application.config.manager.include?(@user.email)
   end
   
