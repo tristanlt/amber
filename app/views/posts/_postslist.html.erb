@@ -23,7 +23,7 @@
 		</footer>
 	</article>
 <%end%>
-
+<% if @nbpages>1 %>
 <ul class="pagination">
 	<% if (@page.to_i!=1) %> <li class="arrow"> <%= link_to("<", url_options = {:data => {:page => @page.to_i-1}}) %> </li> <% end %>
 	<% (1..@nbpages).each do |page| %>
@@ -31,3 +31,4 @@
 	<% end %>
 	 <% if (@page.to_i!=@nbpages.to_i ) %> <li class="arrow"> <%= link_to(">", url_options = {:data => {:page => @page.to_i+1}}) %> </li> <%end%>
 </ul>
+<% end %>
