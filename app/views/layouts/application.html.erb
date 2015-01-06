@@ -11,10 +11,11 @@
   
 </head>
 <body>
-	
+<% if (defined? @blog) %>
 <script type="text/javascript" charset="utf-8">
-	var ROOT_PATH = '<% if @blog %><%= blog_path %><% end %>';
+	var ROOT_PATH = '<% if @blog.textid? %><%= blog_path %><% end %>';
 </script>
+<% end %>
 
 <nav class="top-bar" data-topbar>
 	<ul class="title-area"> <li class="name" class="active"> <h1><a href="/"><%= Amber::Application.config.shorttitle %></a></h1> </li>

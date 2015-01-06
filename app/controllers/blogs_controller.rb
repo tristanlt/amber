@@ -62,7 +62,7 @@ class BlogsController < ApplicationController
     
     respond_to do |format|
       if @blog.save
-        format.html { redirect_to  @blog, notice: 'Blog created' }
+        format.html { redirect_to  blog_path(@blog), notice: 'Blog created' }
         format.json { render json: @blog, status: :created, location: @blog }
       else
         format.html { render action: "new" }
@@ -80,7 +80,7 @@ class BlogsController < ApplicationController
       
     respond_to do |format|
       if @blog.update_attributes(blog_params)
-        format.html { redirect_to( @blog,notice: 'noghint') }
+        format.html { redirect_to  blog_path(@blog), notice: 'Blog updated' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
