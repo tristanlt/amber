@@ -1,0 +1,12 @@
+amberblog:
+        build: .
+        volumes:
+                - .:/myapp
+        ports:
+                - "80:80"
+        links:
+                - db
+        env_file:
+                - '.env.web'
+db:
+         image: mongo
