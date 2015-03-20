@@ -2,14 +2,14 @@ development:
   sessions:
     default:
       hosts:
-        - localhost:27017
+        - <%= ENV.fetch('DB_PORT_27017_TCP_ADDR', 'db') %>:<%= ENV.fetch('DB_PORT_27017_TCP_PORT', '27017') %>
       database: amber_development
 
 test:
   sessions:
     default:
       hosts:
-        - localhost:27017
+        - <%= ENV.fetch('DB_PORT_27017_TCP_ADDR', 'db') %>:<%= ENV.fetch('DB_PORT_27017_TCP_PORT', '27017') %>
       database: amber_test
 
 # set these environment variables on your prod server
@@ -17,7 +17,7 @@ production:
   sessions:
     default:
       hosts:
-        - localhost:27017
-      username: <%= ENV['MONGOID_USERNAME'] %>
-      password: <%= ENV['MONGOID_PASSWORD'] %>
-      database: <%= ENV['MONGOID_DATABASE'] %>
+        - <%= ENV.fetch('DB_PORT_27017_TCP_ADDR', 'db') %>:<%= ENV.fetch('DB_PORT_27017_TCP_PORT', '27017') %>
+      username: <%= ENV.fetch('MONGOID_USERNAME', '') %>
+      password: <%= ENV.fetch('MONGOID_PASSWORD', '') %>
+      database: <%= ENV.fetch('MONGOID_DATABASE', 'amberblog') %>

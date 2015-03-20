@@ -7,7 +7,7 @@ Rails.application.initialize!
 Amber::Application.configure do
   config.shorttitle = 'Amber'
   config.longtitle = "Another MongoDB Blog Energized by Rails"
-  config.manager = ['admin@amberblog.local']
+  config.manager = ['admin@amberblog.local','me@tristan.lt']
   config.autosubscribe = true
   # Set roottype blog or page (soon)
   config.roottype = ''
